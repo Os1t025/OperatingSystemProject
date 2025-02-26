@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.*;
 
+//yo
+
 class Process {
     int pid;
     int arrivalTime;
@@ -27,6 +29,7 @@ class Process {
 public class Project1 {
     private static List<Process> processes = new ArrayList<>();
     private static final int TIME_QUANTUM = 4;
+
     public static void readProcessesFromFile(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             br.readLine();
@@ -67,16 +70,16 @@ public class Project1 {
         processCopy.sort(Comparator.comparingInt(p -> p.arrivalTime));
         int currentTime = 0;
         List<Process> readyQueue = new ArrayList<>();
-    
+
         while (!processCopy.isEmpty() || !readyQueue.isEmpty()) {
             while (!processCopy.isEmpty() && processCopy.get(0).arrivalTime <= currentTime) {
                 readyQueue.add(processCopy.remove(0));
             }
-    
+
             if (!readyQueue.isEmpty()) {
                 readyQueue.sort(Comparator.comparingInt(p -> p.burstTime));
                 Process p = readyQueue.remove(0);
-    
+
                 if (currentTime < p.arrivalTime) {
                     currentTime = p.arrivalTime;
                 }
@@ -90,7 +93,8 @@ public class Project1 {
         }
         displayGanttChart("SJF");
     }
-    //Round Robin
+
+    // Round Robin
     public static void RR() {
         Queue<Process> readyQueue = new LinkedList<>();
         int currentTime = 0;
@@ -124,8 +128,8 @@ public class Project1 {
             }
         }
         displayGanttChart("RR");
-    } 
-    
+    }
+
     // Display the Gantt Chart
     public static void displayGanttChart(String algorithm) {
         System.out.println("\n" + algorithm + " Gantt Chart:");
@@ -146,7 +150,8 @@ public class Project1 {
 
         System.out.println("\nProcess Information:");
         for (Process p : processes) {
-            System.out.println("P" + p.pid + " | Waiting Time: " + p.waitingTime + " | Turnaround Time: " + p.turnaroundTime);
+            System.out.println(
+                    "P" + p.pid + " | Waiting Time: " + p.waitingTime + " | Turnaround Time: " + p.turnaroundTime);
         }
 
         System.out.println("\nAverage Waiting Time: " + (totalWT / (double) processes.size()));
@@ -162,5 +167,3 @@ public class Project1 {
         RR();
     }
 }
-
-
